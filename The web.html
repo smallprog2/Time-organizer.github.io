@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Time Organizer</title>
+  <link rel="stylesheet" href="CSS3.css" />
+</head>
+<body>
+
+  <div>
+    <h1>Time Organizer</h1>
+  </div>
+
+  <form id="taskForm">
+    <label for="task">Task / Activity:</label>
+    <input type="text" id="task" name="task" placeholder="Enter your task" required />
+
+    <label for="date">Date:</label>
+    <input type="date" id="date" name="date" required />
+
+    <label for="time">Time:</label>
+    <input type="time" id="time" name="time" required />
+
+    <input type="submit" value="Add Task" />
+  </form>
+
+  <div id="tasksList">
+    <h2>Your Tasks:</h2>
+    <ul id="list"></ul>
+  </div>
+
+  <script>
+    // تحميل المهام من localStorage أو إنشاء مصفوفة جديدة
+    let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+
+    const list = document.getElementById('list');
+    const form = document.getElementById('taskForm');
+
+    // دالة لعرض المهام في القائمة
+    function displayTasks() {
+      list.innerHTML = '';
+      tasks.forEach((task, index) => {
+        const li = document.createElement('li');
+        li.textContent = `${task.task} — ${task.date} @ ${task.time}`;
+        list.appendChild(li);
+      });
+    }
+
+    // عرض المهام عند تحميل الصفحة
+    displayTasks();
+
+    // حدث إرسال النموذج
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const taskInput = document.getElementById('task').value.trim();
+      const dateInput = document.getElementById('date').value;
+      const timeInput = document.getElementById('time').value;
+
+      if(taskInput && dateInput && timeInput){
+        // إضافة المهمة للمصفوفة
+        tasks.push({task: taskInput, date: dateInput, time: timeInput});
+        // حفظها في localStorage
+        localStorage.setItem('tasks', JSON.stringify(tasks));
+        // تحديث العرض
+        displayTasks();
+        // إعادة تعيين النموذج
+        form.reset();
+      }
+    });
+  </script>
+
+</body>
+</html>

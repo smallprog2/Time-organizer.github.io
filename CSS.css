@@ -1,0 +1,33 @@
+
+
+div p{
+    
+    text-align: center;
+
+}
+
+div h1{
+
+    text-align: center;
+    
+
+}
+
+
+body {
+  background: linear-gradient(to right, cyan, white);
+  min-height: 100vh; /* يغطي الشاشة كاملة */
+  margin: 0; /* يزيل الهامش الافتراضي */
+}
+
+
+input[type="submit"] {
+  background-color: blue;
+  color: red;
+}
+
+input[type="submit"] {
+  display: block;
+  margin: 50vh auto 0 auto; /* 50% من ارتفاع الشاشة كمسافة من الأعلى، وتوسيط أفقياً */
+  transform: translateY(-50%); /* رفع العنصر للنصف الأعلى من ارتفاعه، عشان يكون في الوسط عمودياً */
+}

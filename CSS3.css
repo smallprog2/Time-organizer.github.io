@@ -1,0 +1,69 @@
+/* خلفية بتدرج لوني */
+body {
+  background: linear-gradient(to right, cyan, white);
+  min-height: 100vh;
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+/* عنوان مركزي */
+div h1 {
+  text-align: center;
+  margin-top: 40px;
+  color: #004d4d;
+}
+
+/* النموذج في الوسط بعرض محدود */
+form {
+  max-width: 400px;
+  margin: 30px auto;
+  background: rgba(255, 255, 255, 0.85);
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* تنسيق الحقول */
+input[type="text"],
+input[type="time"],
+input[type="date"] {
+  width: 100%;
+  padding: 10px;
+  margin: 8px 0 15px 0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+  font-size: 16px;
+}
+
+/* زر الإضافة */
+input[type="submit"] {
+  background-color: #008080;
+  color: white;
+  padding: 12px;
+  width: 100%;
+  border: none;
+  border-radius: 8px;
+  font-size: 18px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+input[type="submit"]:hover {
+  background-color: #005959;
+}
+
+/* صندوق عرض المهام */
+#tasksList {
+  max-width: 400px;
+  margin: 20px auto;
+  background: rgba(255,255,255,0.9);
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 0 7px rgba(0,0,0,0.1);
+  font-size: 16px;
+}
+
+#tasksList ul {
+  padding-left: 20px;
+}
