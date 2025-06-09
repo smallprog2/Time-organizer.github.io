@@ -1,33 +1,42 @@
-
-
-div p{
-    
-    text-align: center;
-
-}
-
-div h1{
-
-    text-align: center;
-    
-
-}
-
-
 body {
   background: linear-gradient(to right, cyan, white);
-  min-height: 100vh; /* يغطي الشاشة كاملة */
-  margin: 0; /* يزيل الهامش الافتراضي */
+  min-height: 100vh;
+  margin: 0;
+  font-family: Arial, sans-serif;
 }
 
+table {
+  margin: 20px auto;
+}
+
+div p, div h1 {
+  text-align: center;
+  margin: 10px 0;
+}
+
+p {
+  max-width: 600px;
+  margin: 10px auto 20px auto;
+  text-align: center;
+  line-height: 1.5;
+  font-size: 1rem;
+  color: #333;
+}
 
 input[type="submit"] {
   background-color: blue;
   color: red;
+  display: block;
+  margin: 30px auto;
+  padding: 12px 30px;
+  font-size: 18px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  transition: background-color 0.3s ease;
 }
 
-input[type="submit"] {
-  display: block;
-  margin: 50vh auto 0 auto; /* 50% من ارتفاع الشاشة كمسافة من الأعلى، وتوسيط أفقياً */
-  transform: translateY(-50%); /* رفع العنصر للنصف الأعلى من ارتفاعه، عشان يكون في الوسط عمودياً */
+input[type="submit"]:hover {
+  background-color: darkblue;
 }
