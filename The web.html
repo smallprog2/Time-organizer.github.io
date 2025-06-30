@@ -30,13 +30,11 @@
   </div>
 
   <script>
-    // تحميل المهام من localStorage أو إنشاء مصفوفة جديدة
     let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
 
     const list = document.getElementById('list');
-    const form = document.getElementById('taskForm');
+    const taskForm = document.getElementById('taskForm');
 
-    // دالة لعرض المهام في القائمة
     function displayTasks() {
       list.innerHTML = '';
       tasks.forEach((task, index) => {
@@ -46,88 +44,90 @@
       });
     }
 
-    // عرض المهام عند تحميل الصفحة
     displayTasks();
 
-    // حدث إرسال النموذج
-    form.addEventListener('submit', function(e) {
+    taskForm.addEventListener('submit', function(e) {
       e.preventDefault();
       const taskInput = document.getElementById('task').value.trim();
       const dateInput = document.getElementById('date').value;
       const timeInput = document.getElementById('time').value;
 
       if(taskInput && dateInput && timeInput){
-        // إضافة المهمة للمصفوفة
         tasks.push({task: taskInput, date: dateInput, time: timeInput});
-        // حفظها في localStorage
         localStorage.setItem('tasks', JSON.stringify(tasks));
-        // تحديث العرض
         displayTasks();
-        // إعادة تعيين النموذج
-        form.reset();
+        taskForm.reset();
       }
     });
   </script>
 
   <!-- مراجعات المستخدمين -->
-<section id="reviews" style="margin-top: 40px; padding: 20px; background-color: #1e1e2f; border-radius: 10px; color: #fff; box-shadow: 0 0 10px rgba(0,0,0,0.3); max-width: 600px; margin-left: auto; margin-right: auto;">
-  <h2 style="text-align: center;">مراجعات المستخدمين</h2>
+  <section id="reviews" style="margin-top: 40px; padding: 20px; background-color: #1e1e2f; border-radius: 10px; color: #fff; max-width: 600px; margin-left: auto; margin-right: auto;">
+    <h2 style="text-align: center;">مراجعات المستخدمين</h2>
 
-  <form id="reviewForm" style="margin-top: 20px; display: flex; flex-direction: column; gap: 10px;">
-    <input type="text" id="name" placeholder="اسمك" required style="padding: 10px; border-radius: 5px; border: none; background-color: #2b2b3f; color: #fff;" />
-    
-    <select id="rating" required style="padding: 10px; border-radius: 5px; background-color: #2b2b3f; color: #fff; border: none;">
-      <option value="">اختر تقييمًا</option>
-      <option value="5">⭐⭐⭐⭐⭐</option>
-      <option value="4">⭐⭐⭐⭐</option>
-      <option value="3">⭐⭐⭐</option>
-      <option value="2">⭐⭐</option>
-      <option value="1">⭐</option>
-    </select>
+    <form id="reviewForm" style="margin-top: 20px; display: flex; flex-direction: column; gap: 10px;">
+      <input type="text" id="name" placeholder="اسمك" required style="padding: 10px; border-radius: 5px; border: none; background-color: #2b2b3f; color: #fff;" />
+      
+      <select id="rating" required style="padding: 10px; border-radius: 5px; background-color: #2b2b3f; color: #fff; border: none;">
+        <option value="">اختر تقييمًا</option>
+        <option value="5">⭐⭐⭐⭐⭐</option>
+        <option value="4">⭐⭐⭐⭐</option>
+        <option value="3">⭐⭐⭐</option>
+        <option value="2">⭐⭐</option>
+        <option value="1">⭐</option>
+      </select>
 
-    <textarea id="comment" placeholder="اكتب تعليقك..." required style="padding: 10px; border-radius: 5px; border: none; background-color: #2b2b3f; color: #fff; resize: vertical;"></textarea>
+      <textarea id="comment" placeholder="اكتب تعليقك..." required style="padding: 10px; border-radius: 5px; border: none; background-color: #2b2b3f; color: #fff; resize: vertical;"></textarea>
 
-    <button type="submit" style="padding: 10px; background-color: #00b894; color: #fff; border: none; border-radius: 5px; cursor: pointer;">إرسال</button>
-  </form>
+      <button type="submit" style="padding: 10px; background-color: #00b894; color: #fff; border: none; border-radius: 5px; cursor: pointer;">إرسال</button>
+    </form>
 
-  <div id="reviewsList" style="margin-top: 30px;"></div>
-</section>
+    <div id="reviewsList" style="margin-top: 30px;"></div>
+  </section>
 
-<script>
-  const form = document.getElementById('reviewForm');
-  const reviewsList = document.getElementById('reviewsList');
+  <script>
+    const scriptURL = "https://script.google.com/macros/s/AKfycbzrr0VS4xG0CLymQwBrUZm3CM9v--Ms0X7pedIeWdrUHc0Z-nlBD6YpR5AoA8kSr0-BSA/exec";
+    const reviewForm = document.getElementById("reviewForm");
+    const reviewsList = document.getElementById("reviewsList");
 
-  function loadReviews() {
-    const reviews = JSON.parse(localStorage.getItem('reviews') || '[]');
-    reviewsList.innerHTML = reviews.map(r => `
-      <div style="background-color: #2b2b3f; padding: 15px; margin-top: 10px; border-radius: 5px;">
-        <strong style="color: #00cec9;">${r.name}</strong> - ${'⭐'.repeat(r.rating)}
-        <p style="margin-top: 5px;">${r.comment}</p>
-      </div>
-    `).join('');
-  }
+    reviewForm.addEventListener("submit", e => {
+      e.preventDefault();
+      const name = document.getElementById("name").value.trim();
+      const rating = document.getElementById("rating").value;
+      const comment = document.getElementById("comment").value.trim();
 
-  form.onsubmit = function(e) {
-    e.preventDefault();
-    const name = document.getElementById('name').value.trim();
-    const rating = parseInt(document.getElementById('rating').value);
-    const comment = document.getElementById('comment').value.trim();
+      if (!name || !rating || !comment) return;
 
-    if (!name || !rating || !comment) return;
+      fetch(scriptURL, {
+        method: "POST",
+        body: JSON.stringify({ name, rating, comment }),
+        headers: { "Content-Type": "application/json" }
+      })
+      .then(() => {
+        reviewForm.reset();
+        loadReviews();
+      })
+      .catch(error => console.error("خطأ:", error));
+    });
 
-    const newReview = { name, rating, comment };
-    const reviews = JSON.parse(localStorage.getItem('reviews') || '[]');
-    reviews.push(newReview);
-    localStorage.setItem('reviews', JSON.stringify(reviews));
-    form.reset();
+    function loadReviews() {
+      fetch(scriptURL)
+        .then(response => response.json())
+        .then(data => {
+          reviewsList.innerHTML = "";
+          data.reverse().forEach(r => {
+            reviewsList.innerHTML += `
+              <div style="background-color: #2b2b3f; padding: 15px; margin-top: 10px; border-radius: 5px;">
+                <strong style="color: #00cec9;">${r.name}</strong> - ${'⭐'.repeat(r.rating)}
+                <p style="margin-top: 5px;">${r.comment}</p>
+              </div>
+            `;
+          });
+        });
+    }
+
     loadReviews();
-  }
+  </script>
 
-  loadReviews();
-</script>
-
-  
 </body>
-
-  
 </html>
